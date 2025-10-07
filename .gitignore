@@ -119,3 +119,6 @@ test_reports
 # vscode
 .vscode/settings.json
 .vscode/launch.json
+
+# yaml
+*/config.yaml

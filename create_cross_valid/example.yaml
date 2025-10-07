@@ -1,0 +1,6 @@
+capture_dir: capture_folder
+cross_vdb_dir: valid_capture_folder
+
+step: 3
+num_query: 30
+map_ratio: 0.1
