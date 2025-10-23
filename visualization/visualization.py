@@ -3,11 +3,15 @@ import numpy as np
 from scipy.spatial.transform import Rotation as R
 
 class VisualizeCamPose:
-    def __init__(self, color=(255, 255, 255), scale = 0.01):
+    def __init__(self, color=(255, 255, 255), scale = 0.01, model = None):
         self.color = color
         self.scale = scale
         self.vis = None
-             
+        self.model = model
+        if self.model == 'global':
+            print("Global View")
+        else:
+            print("Local View")             
     def pose_matrix(self, Q, T):
         q_xyzw = np.array([Q[1], Q[2], Q[3], Q[0]])
         pose = np.eye(4)
@@ -59,8 +63,12 @@ class VisualizeCamPose:
         self.vis.add_geometry(line_set)
         self.vis.add_geometry(pc)
     
-    def visualize_ios(self, info):        
+    def visualize_ios(self, info):
         cam_pose = self.pose_matrix(Q=info['Q'], T=info['T'])
+        if self.model == 'global':
+            if info['Q_global'] is not None and info['T_global'] is not None:
+                cam_pose_global = self.pose_matrix(Q=info['Q_global'], T=info['T_global'])
+                cam_pose = cam_pose_global @ cam_pose  
 
         points = [cam_pose[:3, 3]]
         pc = o3d.geometry.PointCloud()
@@ -79,6 +87,10 @@ class VisualizeCamPose:
     def visualize_hl_spot(self, info):
         cam_poses = []
         rig_pose = self.pose_matrix(info['Q'], info['T'])
+        if self.model == 'global':
+            if info['Q_global'] is not None and info['T_global'] is not None:
+                cam_pose_global = self.pose_matrix(Q=info['Q_global'], T=info['T_global'])
+                rig_pose = cam_pose_global @ rig_pose
         for cam_name, cam_info in info.items():
             if (not isinstance(cam_info, dict)) or ('K' not in cam_info):
                 continue

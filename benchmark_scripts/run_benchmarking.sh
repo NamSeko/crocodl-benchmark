@@ -24,8 +24,9 @@ if [ -z "$CAPTURE_DIR" ]; then
   exit 1
 fi
 
-LOCATIONS=("HYDRO" "SUCCULENT")
-OUTPUT_DIR="benchmarking_salad"
+# LOCATIONS=("HYDRO" "SUCCULENT")
+LOCATIONS=("ARCHE_D2")
+OUTPUT_DIR="benchmarking_arche"
 QUERIES_FILE="keyframes_pruned_subsampled.txt"
 LOCAL_FEATURE_METHOD="superpoint"
 MATCHING_METHOD="lightglue"
