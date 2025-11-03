@@ -5,7 +5,7 @@ source ${root_folder}/scripts/load_env.sh
 
 mkdir -p ${root_folder}/external
 cd ${root_folder}/external
-sudo rm -rf ${root_folder}/external/colmap_v3.8
+# sudo rm -rf ${root_folder}/external/colmap_v3.8
 
 apt-get install -y --no-install-recommends --no-install-suggests \
     libboost-program-options-dev \
@@ -26,7 +26,17 @@ apt-get install -y --no-install-recommends --no-install-suggests \
     libcgal-dev
 
 # Installing COLMAP version 3.8
-git clone --recursive -b 3.8 https://github.com/colmap/colmap colmap_v3.8 --depth=1
+# git clone --recursive -b 3.8 https://github.com/colmap/colmap colmap_v3.8 --depth=1
 cd colmap_v3.8
-cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=all
-cmake --build build --target install -- -j$(nproc)
+# cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=all
+# cmake --build build --target install -- -j$(nproc)
+
+# cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES="61"
+# cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=61 -DCMAKE_CXX_COMPILER=/usr/bin/g++-9
+cmake -S . -B build \
+  -DCMAKE_CUDA_ARCHITECTURES=61 \
+  -DCMAKE_CXX_COMPILER=/usr/bin/g++-9 \
+  -DCMAKE_CUDA_FLAGS="--expt-relaxed-constexpr --allow-unsupported-compiler"
+
+cmake --build build --target install -- -j8
+

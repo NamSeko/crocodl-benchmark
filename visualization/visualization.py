@@ -64,10 +64,10 @@ class VisualizeCamPose:
         self.vis.add_geometry(pc)
     
     def visualize_ios(self, info):
-        cam_pose = self.pose_matrix(Q=info['Q'], T=info['T'])
+        cam_pose = self.pose_matrix(Q=info['Q'], T=info['T']) # camera to local/world
         if self.model == 'global':
             if info['Q_global'] is not None and info['T_global'] is not None:
-                cam_pose_global = self.pose_matrix(Q=info['Q_global'], T=info['T_global'])
+                cam_pose_global = self.pose_matrix(Q=info['Q_global'], T=info['T_global']) # 
                 cam_pose = cam_pose_global @ cam_pose  
 
         points = [cam_pose[:3, 3]]

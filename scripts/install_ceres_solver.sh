@@ -5,7 +5,7 @@ source ${root_folder}/scripts/load_env.sh
 
 mkdir -p ${root_folder}/external
 cd ${root_folder}/external
-sudo rm -rf ${root_folder}/external/ceres-solver-v2.1.0
+# sudo rm -rf ${root_folder}/external/ceres-solver-v2.1.0
 
 apt-get install -y --no-install-recommends --no-install-suggests \
     cmake \
@@ -16,7 +16,7 @@ apt-get install -y --no-install-recommends --no-install-suggests \
     libsuitesparse-dev \
     build-essential
 
-git clone -b 2.1.0 https://github.com/ceres-solver/ceres-solver.git ceres-solver-v2.1.0 --depth=1
+# git clone -b 2.1.0 https://github.com/ceres-solver/ceres-solver.git ceres-solver-v2.1.0 --depth=1
 cd ceres-solver-v2.1.0
 cmake -S . -B build
 cmake --build build --target install -- -j$(nproc)
