@@ -1,6 +1,5 @@
 outputs/
 data/
-external/
 raybender/
 anonymization/
 
@@ -9,6 +8,12 @@ anonymization/
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Images
+*.jpg
+*.png
+*.gif
+*.svg
 
 # C extensions
 *.so
@@ -115,6 +120,8 @@ test_reports
 *.tar.gz
 *.gz
 *_pb2.py
+*.npy
+*.pt
 
 # vscode
 .vscode/settings.json
